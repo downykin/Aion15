@@ -1,1 +1,1055 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1015">
+<title>AION15 — Roblox Game Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0d1015;
+  --panel: #151a22;
+  --line: #29313c;
+  --text: #f2f4f7;
+  --muted: #929baa;
+  --green: #c5fa68;
+  --max: 1160px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "DM Sans", sans-serif;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+::selection { background: var(--green); color: #11160a; }
+
+.container {
+  width: min(var(--max), calc(100% - 48px));
+  margin-inline: auto;
+}
+
+header {
+  height: 76px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid #29313cbb;
+  background: #0d1015ef;
+  backdrop-filter: blur(18px);
+}
+
+.nav {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font: 700 16px "Space Grotesk", sans-serif;
+}
+
+.brand-icon {
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: var(--green);
+  color: #17200b;
+  font-size: 23px;
+}
+
+.brand-name span, .footer-brand span { color: var(--green); }
+
+.brand small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font: 700 9px "DM Sans", sans-serif;
+  letter-spacing: .17em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links > a:not(.button) {
+  color: #a8afbc;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.nav-links > a:hover { color: var(--green); }
+
+.button {
+  min-height: 44px;
+  padding: 0 17px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--green);
+  color: #18210c;
+  font-size: 12px;
+  font-weight: 800;
+  transition: background .22s, transform .22s, box-shadow .22s;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  background: #d5ff8c;
+  box-shadow: 0 8px 28px #c5fa6818;
+}
+
+.button span { font-size: 17px; }
+
+.button-secondary {
+  background: #1c232d;
+  border-color: #343d49;
+  color: var(--text);
+}
+
+.button-secondary:hover {
+  background: #272f3b;
+  box-shadow: none;
+}
+
+.menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: white;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 480px;
+  margin-top: 25px;
+  padding: 45px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 30px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at 90% 5%, #c5fa6810, transparent 38%),
+    linear-gradient(125deg, #151a22, #10141b 75%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  right: -210px;
+  top: -250px;
+  border: 1px solid #c5fa681b;
+  border-radius: 50%;
+  box-shadow: 0 0 0 45px #c5fa6806, 0 0 0 90px #c5fa6804;
+  pointer-events: none;
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .17em;
+}
+
+.dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 13px #c5fa6860;
+}
+
+.hero h1 {
+  margin: 0;
+  font: 700 clamp(44px, 5vw, 68px)/.99 "Space Grotesk", sans-serif;
+  letter-spacing: -.075em;
+}
+
+.hero h1 span,
+.section-heading h2 span,
+.community h2 span { color: var(--green); }
+
+.hero-description {
+  max-width: 430px;
+  margin: 22px 0 25px;
+  color: #aeb6c3;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-note {
+  margin-top: 26px;
+  color: #778190;
+  font-size: 10px;
+}
+
+.hero-visual {
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid #343c47;
+  border-radius: 13px;
+  background: #191f28;
+  transform: rotate(1deg);
+  transition: transform .35s;
+}
+
+.hero-visual:hover { transform: rotate(0) translateY(-3px); }
+
+.visual-top, .visual-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #a3adbc;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.visual-top span:last-child { color: var(--green); }
+
+.visual-art {
+  height: 255px;
+  margin: 14px 0;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background:
+    linear-gradient(150deg, transparent 49.8%, #ffffff0c 50%, transparent 50.4%),
+    linear-gradient(35deg, transparent 49.8%, #ffffff0b 50%, transparent 50.4%),
+    radial-gradient(ellipse at 50% 50%, #26313b, #171d26 70%);
+}
+
+.visual-art::before, .visual-art::after {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 250px;
+  border: 1px solid #c5fa683a;
+  border-radius: 50%;
+  transform: rotate(32deg) scaleX(.55);
+}
+
+.visual-art::after { transform: rotate(-32deg) scaleX(.55); }
+
+.visual-cross {
+  position: absolute;
+  top: 15px;
+  right: 22px;
+  color: var(--green);
+  font-size: 40px;
+  animation: rotate 25s linear infinite;
+}
+
+.visual-title {
+  position: relative;
+  z-index: 1;
+  font: 700 clamp(40px, 5vw, 61px)/.9 "Space Grotesk", sans-serif;
+  letter-spacing: -.09em;
+  text-align: center;
+  transform: rotate(-7deg);
+}
+
+.visual-title span { color: var(--green); }
+
+.visual-tag {
+  position: absolute;
+  bottom: 20px;
+  left: 15px;
+  padding: 6px 9px;
+  border: 1px solid #46505d;
+  border-radius: 5px;
+  color: #b4bdca;
+  font-size: 8px;
+  letter-spacing: .1em;
+}
+
+.visual-tag.right { left: auto; right: 15px; bottom: 40px; }
+
+/* TITRES DES SECTIONS */
+
+section.content-section { padding: 78px 0 0; }
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.section-heading .eyebrow { margin-bottom: 12px; }
+
+.section-heading h2 {
+  margin: 0;
+  font: 700 clamp(32px, 4vw, 45px)/1.1 "Space Grotesk", sans-serif;
+  letter-spacing: -.065em;
+}
+
+.section-description {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* CARROUSEL INFINI */
+
+.game-carousel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: 16px;
+}
+
+.carousel-window {
+  overflow: hidden;
+  min-width: 0;
+  padding: 14px 0 24px;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: stretch;
+  gap: 22px;
+  will-change: transform;
+  transition: transform .65s cubic-bezier(.22,.75,.25,1);
+}
+
+.carousel-card {
+  flex: 0 0 76%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--panel);
+  opacity: .45;
+  transform: scale(.92);
+  filter: saturate(.65);
+  transition:
+    opacity .55s ease,
+    transform .65s cubic-bezier(.22,.75,.25,1),
+    filter .55s ease,
+    border-color .4s ease,
+    box-shadow .4s ease;
+}
+
+.carousel-card.active {
+  opacity: 1;
+  transform: scale(1);
+  filter: saturate(1);
+  border-color: #566b3b;
+  box-shadow: 0 18px 50px #0002;
+}
+
+.game-art {
+  height: 270px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 23px;
+  background: #202832;
+}
+
+.game-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .8;
+  transition: transform .5s;
+}
+
+.carousel-card:hover .game-art::before { transform: scale(1.05); }
+
+.wildcrest-art::before {
+  background:
+    radial-gradient(ellipse at 70% 28%, #c5fa6840, transparent 22%),
+    linear-gradient(150deg, transparent 45%, #10171d 45.3%),
+    linear-gradient(30deg, transparent 54%, #a8d46b18 54.3%),
+    linear-gradient(135deg, #2c443e, #18251f 48%, #121820);
+}
+
+.breaknfly-art::before {
+  background:
+    radial-gradient(ellipse at 65% 35%, #b4a5ff40, transparent 24%),
+    linear-gradient(30deg, transparent 45%, #ffffff0b 45.3%),
+    linear-gradient(150deg, transparent 55%, #c5fa6810 55.3%),
+    linear-gradient(135deg, #39334e, #202632 50%, #121820);
+}
+
+.swoardz-art::before {
+  background:
+    radial-gradient(ellipse at 65% 35%, #c5fa6840, transparent 26%),
+    linear-gradient(135deg, transparent 45%, #ffffff0c 45.3%),
+    linear-gradient(150deg, #44452e, #272c25 50%, #121820);
+}
+
+.game-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #0d1015d9, transparent 80%);
+}
+
+.art-number {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  z-index: 1;
+  color: #dce3ec;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .15em;
+}
+
+.art-orbit {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  right: 35px;
+  top: -45px;
+  border: 1px solid #c5fa6845;
+  border-radius: 50%;
+  transform: scaleX(.6) rotate(35deg);
+}
+
+.breaknfly-art .art-orbit { border-color: #b4a5ff66; }
+
+.art-name {
+  position: relative;
+  z-index: 1;
+  font: 700 clamp(38px, 5vw, 62px)/.95 "Space Grotesk", sans-serif;
+  letter-spacing: -.07em;
+}
+
+.art-name span { color: var(--green); }
+.breaknfly-art .art-name span { color: #c0b5ff; }
+
+.sword-symbol {
+  position: absolute;
+  top: 22px;
+  right: 25px;
+  z-index: 1;
+  font-size: 43px;
+  color: var(--green);
+  transform: rotate(-12deg);
+}
+
+.game-info { padding: 24px; }
+
+.game-category {
+  color: var(--green);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .13em;
+}
+
+.game-info h3 {
+  margin: 12px 0 5px;
+  font: 700 31px "Space Grotesk", sans-serif;
+  letter-spacing: -.05em;
+}
+
+.game-info p {
+  min-height: 40px;
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.carousel-card .button { min-height: 42px; }
+
+.carousel-arrow {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #394331;
+  border-radius: 50%;
+  background: var(--green);
+  color: #11160a;
+  font-size: 25px;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.carousel-arrow:hover {
+  transform: translateX(4px);
+  box-shadow: 0 0 25px #c5fa6820;
+}
+
+.carousel-arrow:active { transform: scale(.94); }
+
+/* COMMUNAUTÉ */
+
+.community {
+  margin-top: 80px;
+  padding: 36px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 28px;
+  overflow: hidden;
+  border: 1px solid #3b4930;
+  border-radius: 14px;
+  background:
+    radial-gradient(ellipse at 90% 50%, #c5fa6812, transparent 40%),
+    #151b20;
+}
+
+.community h2 {
+  margin: 0 0 10px;
+  font: 700 clamp(30px, 4vw, 42px)/1.1 "Space Grotesk", sans-serif;
+  letter-spacing: -.06em;
+}
+
+.community p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.group-label {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--green);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .15em;
+}
+
+.community-mark {
+  width: 94px;
+  height: 94px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+  border: 1px solid #c5fa6848;
+  border-radius: 24px;
+  background: #c5fa680b;
+  color: var(--green);
+  font: 700 42px "Space Grotesk", sans-serif;
+  transform: rotate(-5deg);
+}
+
+.community-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.community-right .button { white-space: nowrap; }
+
+/* FOOTER */
+
+footer {
+  margin-top: 75px;
+  border-top: 1px solid var(--line);
+}
+
+.footer-inner {
+  min-height: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+footer p, footer a {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+footer a:hover { color: var(--green); }
+.footer-brand { color: var(--text); font: 700 13px "Space Grotesk", sans-serif; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@keyframes rotate { to { transform: rotate(360deg); } }
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .hero { padding: 35px 28px; gap: 22px; }
+  .hero h1 { font-size: clamp(40px, 5.8vw, 56px); }
+  .visual-art { height: 230px; }
+  .nav-links { gap: 18px; }
+  .community { padding: 28px; }
+}
+
+@media (max-width: 650px) {
+  .container { width: calc(100% - 30px); }
+  header { height: 68px; }
+  .menu-toggle { display: block; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 67px;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 5px;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .nav-links.open { display: flex; }
+  .nav-links > a:not(.button) { padding: 12px 6px; }
+  .nav-links .button { width: 100%; }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 15px;
+    padding: 28px 20px 20px;
+    gap: 28px;
+  }
+
+  .hero h1 { font-size: clamp(39px, 10vw, 54px); }
+  .hero-description { font-size: 13px; }
+  .hero-visual { transform: none; }
+  .hero-visual:hover { transform: none; }
+  .visual-art { height: 210px; }
+  .visual-title { font-size: 48px; }
+
+  section.content-section { padding-top: 58px; }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .section-heading h2 { font-size: 35px; }
+
+  .game-carousel {
+    grid-template-columns: minmax(0, 1fr) 36px;
+    gap: 8px;
+  }
+
+  .carousel-arrow { width: 36px; height: 36px; font-size: 20px; }
+  .carousel-track { gap: 12px; }
+  .carousel-window { padding: 10px 0 18px; }
+  .carousel-card { flex-basis: 100%; }
+  .carousel-card .game-art { height: 190px; }
+  .carousel-card .game-info { padding: 17px; }
+  .carousel-card .game-info h3 { font-size: 26px; }
+
+  .community {
+    margin-top: 58px;
+    padding: 24px 20px;
+    grid-template-columns: 1fr;
+    gap: 23px;
+  }
+
+  .community-right {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .community-mark {
+    width: 65px;
+    height: 65px;
+    margin-bottom: 0;
+    border-radius: 17px;
+    font-size: 30px;
+  }
+
+  .footer-inner {
+    padding: 20px 0;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home" aria-label="Aion15 accueil">
+      <span class="brand-icon">A</span>
+      <span class="brand-name">AION<span>15</span><small>ROBLOX GAME STUDIO</small></span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#games">Nos jeux</a>
+      <a href="#community">Communauté</a>
+      <a class="button" href="https://www.roblox.com/communities/966292669/Aion15#!/about" target="_blank" rel="noopener">
+        Rejoindre Aion15 <span>↗</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero" id="home">
+    <div>
+      <p class="eyebrow"><span class="dot"></span> INDÉPENDANT · CRÉATIF · ROBLOX</p>
+      <h1>WE BUILD.<br><span>YOU PLAY.</span></h1>
+      <p class="hero-description">
+        Bienvenue chez Aion15. Découvre nos expériences Roblox,
+        explore nos univers et retrouve tous nos jeux au même endroit.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="#games">Découvrir les jeux <span>↓</span></a>
+        <a class="button button-secondary" href="https://www.roblox.com/communities/966292669/Aion15#!/about" target="_blank" rel="noopener">
+          Notre communauté <span>↗</span>
+        </a>
+      </div>
+      <p class="hero-note">AION15 / OFFICIAL GAME HUB</p>
+    </div>
+
+    <div class="hero-visual">
+      <div class="visual-top">
+        <span>AION15 / GAME STUDIO</span>
+        <span>● EXPLORE OUR WORLDS</span>
+      </div>
+      <div class="visual-art">
+        <span class="visual-cross">✳</span>
+        <div class="visual-title">PLAY<br><span>YOUR WAY.</span></div>
+        <span class="visual-tag">01 / WILDCREST</span>
+        <span class="visual-tag right">03 / SWOARDZ</span>
+      </div>
+      <div class="visual-bottom">
+        <span>BUILT FOR PLAYERS</span>
+        <span>POWERED BY AION15</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section" id="games">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">THE GAME LIBRARY</p>
+        <h2>Choisis ton <span>univers.</span></h2>
+      </div>
+      <p class="section-description">
+        Trois jeux. Trois expériences.<br>
+        Lequel vas-tu lancer ?
+      </p>
+    </div>
+
+    <div class="game-carousel">
+      <div class="carousel-window" id="carouselWindow">
+        <div class="carousel-track" id="gameTrack">
+
+          <article class="carousel-card">
+            <div class="game-art wildcrest-art">
+              <span class="art-number">AION15 ORIGINAL / 001</span>
+              <span class="art-orbit"></span>
+              <div class="art-name">WILD<span>CREST</span></div>
+            </div>
+            <div class="game-info">
+              <span class="game-category">ROBLOX EXPERIENCE · 01</span>
+              <h3>Wildcrest</h3>
+              <p>Découvre l'univers de Wildcrest sur Roblox.</p>
+              <a class="button" href="https://www.roblox.com/games/118339248845414/Wildcrest" target="_blank" rel="noopener">Jouer maintenant <span>↗</span></a>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="game-art breaknfly-art">
+              <span class="art-number">AION15 ORIGINAL / 002</span>
+              <span class="art-orbit"></span>
+              <div class="art-name">BREAK<span>NFLY</span></div>
+            </div>
+            <div class="game-info">
+              <span class="game-category">ROBLOX EXPERIENCE · 02</span>
+              <h3>Breaknfly</h3>
+              <p>Retrouve Breaknfly et lance ton aventure.</p>
+              <a class="button" href="https://www.roblox.com/games/113515357429046/Breaknfly" target="_blank" rel="noopener">Jouer maintenant <span>↗</span></a>
+            </div>
+          </article>
+
+          <article class="carousel-card">
+            <div class="game-art swoardz-art">
+              <span class="art-number">AION15 ORIGINAL / 003</span>
+              <span class="art-orbit"></span>
+              <span class="sword-symbol">⚔</span>
+              <div class="art-name">SWO<span>ARDZ</span></div>
+            </div>
+            <div class="game-info">
+              <span class="game-category">ROBLOX EXPERIENCE · 03</span>
+              <h3>Swoardz</h3>
+              <p>Découvre Swoardz sur Roblox.</p>
+              <a class="button" href="https://www.roblox.com/games/75450111777057/Swoardz" target="_blank" rel="noopener">Jouer maintenant <span>↗</span></a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <button class="carousel-arrow" id="nextGame" aria-label="Jeu suivant">→</button>
+    </div>
+  </section>
+
+  <section class="community reveal" id="community">
+    <div>
+      <span class="group-label">THE OFFICIAL COMMUNITY</span>
+      <h2>Un seul groupe.<br><span>Tous nos jeux.</span></h2>
+      <p>
+        Retrouve Aion15 sur Roblox pour accéder à la communauté
+        et retrouver les jeux associés au groupe.
+      </p>
+    </div>
+    <div class="community-right">
+      <div class="community-mark">A15</div>
+      <a class="button" href="https://www.roblox.com/communities/966292669/Aion15#!/about" target="_blank" rel="noopener">
+        Visiter le groupe Roblox <span>↗</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <a class="footer-brand" href="#home">AION<span>15</span> / ROBLOX</a>
+    <p>Un univers créé pour les joueurs.</p>
+    <a href="#home">Retour en haut ↑</a>
+  </div>
+</footer>
+
+<script>
+/* MENU MOBILE */
+const menuToggle = document.querySelector("#menuToggle");
+const navLinks = document.querySelector("#navLinks");
+
+menuToggle.addEventListener("click", () => {
+  const open = navLinks.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", String(open));
+  menuToggle.textContent = open ? "✕" : "☰";
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.textContent = "☰";
+  });
+});
+
+/*
+  CARROUSEL INFINI SANS SAUT VISIBLE
+
+  Trois séquences identiques :
+  - une copie avant les cartes originales ;
+  - les cartes originales au centre ;
+  - une copie après les cartes originales.
+
+  Quand on dépasse la séquence centrale, on se repositionne
+  sur la carte identique de la séquence centrale sans transition.
+*/
+
+const track = document.querySelector("#gameTrack");
+const carouselWindow = document.querySelector("#carouselWindow");
+const nextButton = document.querySelector("#nextGame");
+
+const originalCards = [...track.querySelectorAll(".carousel-card")];
+const totalGames = originalCards.length;
+
+function cloneCard(card) {
+  const clone = card.cloneNode(true);
+  clone.classList.remove("active");
+  clone.setAttribute("aria-hidden", "true");
+
+  clone.querySelectorAll("a, button").forEach(element => {
+    element.setAttribute("tabindex", "-1");
+  });
+
+  return clone;
+}
+
+/* Construire les copies avant et après la séquence originale */
+const beforeFragment = document.createDocumentFragment();
+const afterFragment = document.createDocumentFragment();
+
+originalCards.forEach(card => {
+  beforeFragment.appendChild(cloneCard(card));
+  afterFragment.appendChild(cloneCard(card));
+});
+
+track.prepend(beforeFragment);
+track.append(afterFragment);
+
+const cards = [...track.querySelectorAll(".carousel-card")];
+
+let activeIndex = totalGames;
+let isAnimating = false;
+let touchStartX = 0;
+
+function positionCarousel(animate = true) {
+  const card = cards[activeIndex];
+  if (!card) return;
+
+  track.style.transition = animate
+    ? "transform .65s cubic-bezier(.22,.75,.25,1)"
+    : "none";
+
+  const centerOffset =
+    (carouselWindow.clientWidth - card.offsetWidth) / 2;
+
+  track.style.transform =
+    `translateX(${centerOffset - card.offsetLeft}px)`;
+
+  cards.forEach((item, index) => {
+    item.classList.toggle("active", index === activeIndex);
+  });
+}
+
+function nextGame() {
+  if (isAnimating) return;
+
+  isAnimating = true;
+  activeIndex++;
+  positionCarousel(true);
+}
+
+nextButton.addEventListener("click", nextGame);
+
+track.addEventListener("transitionend", event => {
+  if (event.propertyName !== "transform") return;
+
+  /*
+    À la fin de la séquence originale, on est déjà sur une copie
+    identique de Wildcrest. On repositionne sur Wildcrest original
+    pendant que les deux séquences sont visuellement identiques.
+  */
+  if (activeIndex >= totalGames * 2) {
+    activeIndex -= totalGames;
+
+    positionCarousel(false);
+
+    /* Appliquer le repositionnement sans transition */
+    track.getBoundingClientRect();
+  }
+
+  isAnimating = false;
+});
+
+/* Flèche droite du clavier */
+document.addEventListener("keydown", event => {
+  const tag = document.activeElement.tagName;
+
+  if (
+    event.key === "ArrowRight" &&
+    tag !== "INPUT" &&
+    tag !== "TEXTAREA" &&
+    !event.ctrlKey &&
+    !event.altKey &&
+    !event.metaKey
+  ) {
+    nextGame();
+  }
+});
+
+/* Glissement tactile vers la gauche pour avancer */
+carouselWindow.addEventListener("touchstart", event => {
+  touchStartX = event.changedTouches[0].screenX;
+}, { passive: true });
+
+carouselWindow.addEventListener("touchend", event => {
+  const delta = event.changedTouches[0].screenX - touchStartX;
+  if (delta < -50) nextGame();
+}, { passive: true });
+
+/* Animations au défilement */
+if (
+  "IntersectionObserver" in window &&
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll(".reveal").forEach(element => {
+    observer.observe(element);
+  });
+} else {
+  document.querySelectorAll(".reveal").forEach(element => {
+    element.classList.add("visible");
+  });
+}
+
+/* Initialisation */
+window.addEventListener("resize", () => positionCarousel(false));
+window.addEventListener("load", () => positionCarousel(false));
+positionCarousel(false);
+</script>
+</body>
+</html>
+
